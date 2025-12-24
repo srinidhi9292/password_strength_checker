@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Password Strength Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="card">
+    <h2>Password Strength Checker</h2>
+
+    <form method="POST">
+        <div class="input-box">
+            <input type="password" name="password" id="pwd" placeholder="Enter password" required>
+            <span class="eye" onclick="toggle()">👁</span>
+        </div>
+
+
+        <button type="submit">Check Strength</button>
+    </form>
+
+    {% if strength %}
+        <p class="result" style="color: {{ color }};">
+            {{ strength }} Password
+        </p>
+
+        <div class="bar">
+            <div class="fill" style="width: {{ percent }}%; background-color: {{ color }};"></div>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+function toggle() {
+    let p = document.getElementById("pwd");
+    if (p.type === "password") {
+        p.type = "text";
+    } else {
+        p.type = "password";
+    }
+}
+</script>
+
+</body>
+</html>
