@@ -6,43 +6,55 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <h1 style="color:red;">TEST CHANGE</h1>
+
 <div class="card">
     <h2>Password Strength Checker</h2>
 
-    <form method="POST">
-        <div class="input-box">
-            <input type="password" name="password" id="pwd" placeholder="Enter password" required>
-            <span class="eye" onclick="toggle()">👁</span>
-        </div>
+    <div class="input-box">
+        <input type="password" id="pwd" placeholder="Enter password">
+        <span class="eye" onclick="toggle()">👁</span>
+    </div>
 
+    <button onclick="checkStrength()">Check Strength</button>
 
-        <button type="submit">Check Strength</button>
-    </form>
+    <p class="result" id="result"></p>
 
-    {% if strength %}
-        <p class="result" style="color: {{ color }};">
-            {{ strength }} Password
-        </p>
-
-        <div class="bar">
-            <div class="fill" style="width: {{ percent }}%; background-color: {{ color }};"></div>
-        </div>
-    {% endif %}
+    <div class="bar">
+        <div class="fill" id="fill"></div>
+    </div>
 </div>
 
 <script>
 function toggle() {
     let p = document.getElementById("pwd");
-    if (p.type === "password") {
-        p.type = "text";
+    p.type = p.type === "password" ? "text" : "password";
+}
+
+function checkStrength() {
+    let pwd = document.getElementById("pwd").value;
+    let result = document.getElementById("result");
+    let fill = document.getElementById("fill");
+
+    if (pwd.length < 6) {
+        result.innerText = "Weak Password";
+        result.style.color = "red";
+        fill.style.width = "30%";
+        fill.style.backgroundColor = "red";
+    } else if (pwd.length < 10) {
+        result.innerText = "Medium Password";
+        result.style.color = "orange";
+        fill.style.width = "60%";
+        fill.style.backgroundColor = "orange";
     } else {
-        p.type = "password";
+        result.innerText = "Strong Password";
+        result.style.color = "green";
+        fill.style.width = "100%";
+        fill.style.backgroundColor = "green";
     }
 }
 </script>
 
 </body>
 </html>
-
-
